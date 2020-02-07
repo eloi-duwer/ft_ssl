@@ -6,12 +6,13 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 13:12:01 by eduwer            #+#    #+#              #
-#    Updated: 2020/02/02 22:36:12 by eduwer           ###   ########.fr        #
+#    Updated: 2020/02/07 14:51:57 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_NAME = main.c \
-	digest.c
+	digest.c \
+	rounds.c
 
 NAME = ft_ssl
 

@@ -6,13 +6,13 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/02 23:09:41 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/07 17:25:55 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static const unsigned int md5_sin[] =
+const unsigned int g_md5_sin[] =
 {
 	0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 	0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
@@ -32,29 +32,56 @@ static const unsigned int md5_sin[] =
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391
 };
 
-static const unsigned int md5_rotation[] =
+const unsigned int g_md5_rotation[] =
 {
 	7, 12, 17, 22, 5, 9, 14, 20, 4, 11, 16, 23, 6, 10, 15, 21
 };
 
-static void padding(t_md5_ctx *ctx) {
-	int	paddingSize;
+void print_bits(unsigned char *msg, unsigned int length) {
+	for (int i = 0; i < length; i++) {
+		unsigned char c = msg[i];
+		for (int j = 7; 0 <= j; j--) {
+			printf("%c", (c & ( 1 << j)) ? '1' : '0');
+		}
+		printf("\n");
+	}
+}
+
+static void append_size(uint64_t size, unsigned char *msg, size_t length)
+{
+	unsigned char	*ptr;
+	int				i;
+
+	size *= 8;
+	ptr = (unsigned char *) &size;
+	print_bits(ptr, 8);
+	i = 7;
+	while (i >= 0)
+	{
+		ft_memcpy(&msg[length - i], &ptr[7 - i], 1);
+		--i;
+	}
+}
+
+static void	padding(t_md5_ctx *ctx)
+{
+	int				padding_size;
 	unsigned char	*ret;
 
-	paddingSize = 56 - ctx->originalSize % 64;
-	if (paddingSize <= 0)
-		paddingSize += 64;
-	paddingSize += 8;
+	padding_size = 56 - ctx->originalSize % 64;
+	if (padding_size <= 0)
+		padding_size += 64;
+	padding_size += 8;
 	ret = (unsigned char *)ft_memalloc(sizeof(unsigned char) * \
-		(ctx->originalSize + paddingSize));
+		(ctx->originalSize + padding_size));
 	ft_memcpy(ret, ctx->message, ctx->originalSize);
-	ret[ctx->originalSize] = 1 << 8 & 0xFF;
-	ctx->currentSize = ctx->originalSize + paddingSize;
-	ft_memcpy(&ret[ctx->currentSize - 2], &(ctx->originalSize), 8);
+	ret[ctx->originalSize] = 1 << 7 & 0xFF;
+	ctx->currentSize = ctx->originalSize + padding_size;
+	append_size(ctx->originalSize, ret, ctx->currentSize);
 	ctx->message = ret;
 }
 
-static void initBuffer(t_md5_ctx *ctx)
+static void	init_ctx(t_md5_ctx *ctx)
 {
 	ctx->bufferA = 0x67452301;
 	ctx->bufferB = 0xefcdab89;
@@ -62,36 +89,57 @@ static void initBuffer(t_md5_ctx *ctx)
 	ctx->bufferD = 0x10325476;
 }
 
-static void md5_loop(t_md5_ctx *ctx, int i)
+static void	md5_loop(t_md5_ctx *ctx, int i)
 {
-	unsigned char buff[16 * 4];
+	uint32_t	buff[16];
+	int			j;
 
+	printf("LOOP\n");
+	j = 0;
+	while (j < 16)
+	{
+		ft_memcpy(&buff[j], &ctx->message[i * (16 * 4) + j * 4], 4);
+		print_bits((unsigned char *) &buff[j], 4);
+		printf("%u\n", buff[j]);
+		++j;
+	}
 	ft_memcpy(buff, &(ctx->message[i * 16]), 16 * 4);
 	ctx->saveA = ctx->bufferA;
 	ctx->saveB = ctx->bufferB;
 	ctx->saveC = ctx->bufferC;
 	ctx->saveD = ctx->bufferD;
+	j = 0;
+	while (j < 64)
+	{
+		g_rounds[j / 16](ctx, j, buff);
+		ctx->bufferA += ctx->saveA;
+		ctx->bufferB += ctx->saveB;
+		ctx->bufferC += ctx->saveC;
+		ctx->bufferD += ctx->saveD;
+		++j;
+	}
 }
 
-void calcMd5(char *str)
+void		calc_md5(char *str)
 {
-	int i;
+	int			i;
+	t_md5_ctx	ctx;
 
-	t_md5_ctx ctx;
 	ctx.message = ft_char_to_unsigned(str);
 	ctx.originalSize = ft_strlen(str);
 	padding(&ctx);
-	initBuffer(&ctx);
+	init_ctx(&ctx);
 	i = 0;
-	while (i < ctx.currentSize / 16)
+	while (i < ctx.currentSize / (16 * 4))
 	{
 		md5_loop(&ctx, i);
 		++i;
 	}
+	printf("%02x%02x%02x%02x\n", ctx.bufferA, ctx.bufferB, ctx.bufferC, ctx.bufferD);
 }
 
-int main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	calcMd5("coucou");
-	return 0;
+	calc_md5("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+	return (0);
 }
