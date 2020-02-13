@@ -6,13 +6,13 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 14:36:33 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/14 00:06:17 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/14 00:39:13 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static const unsigned int g_md5_sin[] =
+static const unsigned int g_sin[] =
 {
 	0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
 	0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
@@ -32,7 +32,7 @@ static const unsigned int g_md5_sin[] =
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391
 };
 
-static const unsigned int g_md5_rotation[] =
+static const unsigned int g_rotation[] =
 {
 	7, 12, 17, 22, 5, 9, 14, 20, 4, 11, 16, 23, 6, 10, 15, 21
 };
@@ -57,6 +57,7 @@ void universal_round(t_md5_ctx *ctx, int i, uint32_t buff[16])
 	else if (nround == 3)
 		k = (0 + ((i - 48) * 7)) % 16;
 	*ctx->buffers[0] = (*ctx->buffers[1] + rotate(((*ctx->buffers[0] + \
-		g_bitwise_operation[nround](*ctx->buffers[1], *ctx->buffers[2], *ctx->buffers[3]) + \
-		(uint32_t) buff[k] + g_md5_sin[i])), g_md5_rotation[nround * 4 + i % 4]));
+		g_bitwise_operation[nround](*ctx->buffers[1], *ctx->buffers[2], \
+			*ctx->buffers[3]) + \
+		(uint32_t) buff[k] + g_sin[i])), g_rotation[nround * 4 + i % 4]));
 }
