@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/13 12:52:32 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/13 23:30:02 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,21 @@ static void	init_ctx(t_md5_ctx *ctx)
 	ctx->bufferB = 0xefcdab89;
 	ctx->bufferC = 0x98badcfe;
 	ctx->bufferD = 0x10325476;
+	ctx->buffers[0] = &ctx->bufferA;
+	ctx->buffers[1] = &ctx->bufferB;
+	ctx->buffers[2] = &ctx->bufferC;
+	ctx->buffers[3] = &ctx->bufferD;
+}
+
+static void rotate_buffers(t_md5_ctx *ctx)
+{
+	uint32_t	*mem;
+
+	mem = ctx->buffers[3];
+	ctx->buffers[3] = ctx->buffers[2];
+	ctx->buffers[2] = ctx->buffers[1];
+	ctx->buffers[1] = ctx->buffers[0];
+	ctx->buffers[0] = mem;
 }
 
 static void	md5_loop(t_md5_ctx *ctx, int i)
@@ -91,7 +106,7 @@ static void	md5_loop(t_md5_ctx *ctx, int i)
 	j = 0;
 	while (j < 16)
 	{
-		ft_memcpy(&buff[j], &ctx->message[i * (16 * 4) + j * 4], sizeof(uint32_t));
+		ft_memcpy(&buff[j], &ctx->message[i * (16 * 4) + j * 4], 4);
 		++j;
 	}
 	ctx->saveA = ctx->bufferA;
@@ -102,6 +117,10 @@ static void	md5_loop(t_md5_ctx *ctx, int i)
 	while (j < 64)
 	{
 		g_rounds[j / 16](ctx, j, buff);
+		printf("%u %u %u %u\n", ctx->bufferA,ctx->bufferB,ctx->bufferC,ctx->bufferD);
+		printf("BEFOR %p %p %p %p\n", ctx->buffers[0],ctx->buffers[1],ctx->buffers[2],ctx->buffers[3]);
+		rotate_buffers(ctx);
+		printf("AFTER %p %p %p %p\n", ctx->buffers[0],ctx->buffers[1],ctx->buffers[2],ctx->buffers[3]);
 		++j;
 	}
 	ctx->bufferA += ctx->saveA;

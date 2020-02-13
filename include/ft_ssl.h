@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/13 22:36:26 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/13 23:10:48 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@ typedef struct 	s_md5_ctx {
 	uint32_t 		bufferB;
 	uint32_t 		bufferC;
 	uint32_t 		bufferD;
+	uint32_t		*buffers[4];
 	uint32_t		saveA;
 	uint32_t		saveB;
 	uint32_t		saveC;
 	uint32_t		saveD;
+
 }				t_md5_ctx;
 
 const unsigned int	g_md5_sin[64];
