@@ -6,7 +6,7 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 13:12:01 by eduwer            #+#    #+#              #
-#    Updated: 2020/02/07 14:51:57 by eduwer           ###   ########.fr        #
+#    Updated: 2020/02/14 00:26:49 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,11 @@ OBJF = ./obj/
 
 OBJS = $(addprefix $(OBJF), $(SRC_NAME:.c=.o))
 
+LFT = libft/libft.a
+
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(LFT) $(OBJS)
 	make -C ./libft
 	$(CC) -o $(NAME) $(OBJS) -g -L./libft -lft
 
