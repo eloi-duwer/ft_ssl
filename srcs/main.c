@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/07 17:25:55 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/13 12:52:32 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,7 @@ static void append_size(uint64_t size, unsigned char *msg, size_t length)
 
 	size *= 8;
 	ptr = (unsigned char *) &size;
-	print_bits(ptr, 8);
-	i = 7;
-	while (i >= 0)
-	{
-		ft_memcpy(&msg[length - i], &ptr[7 - i], 1);
-		--i;
-	}
+	ft_memcpy(&msg[length - 8], ptr, 8);
 }
 
 static void	padding(t_md5_ctx *ctx)
@@ -94,16 +88,12 @@ static void	md5_loop(t_md5_ctx *ctx, int i)
 	uint32_t	buff[16];
 	int			j;
 
-	printf("LOOP\n");
 	j = 0;
 	while (j < 16)
 	{
-		ft_memcpy(&buff[j], &ctx->message[i * (16 * 4) + j * 4], 4);
-		print_bits((unsigned char *) &buff[j], 4);
-		printf("%u\n", buff[j]);
+		ft_memcpy(&buff[j], &ctx->message[i * (16 * 4) + j * 4], sizeof(uint32_t));
 		++j;
 	}
-	ft_memcpy(buff, &(ctx->message[i * 16]), 16 * 4);
 	ctx->saveA = ctx->bufferA;
 	ctx->saveB = ctx->bufferB;
 	ctx->saveC = ctx->bufferC;
@@ -112,12 +102,31 @@ static void	md5_loop(t_md5_ctx *ctx, int i)
 	while (j < 64)
 	{
 		g_rounds[j / 16](ctx, j, buff);
-		ctx->bufferA += ctx->saveA;
-		ctx->bufferB += ctx->saveB;
-		ctx->bufferC += ctx->saveC;
-		ctx->bufferD += ctx->saveD;
 		++j;
 	}
+	ctx->bufferA += ctx->saveA;
+	ctx->bufferB += ctx->saveB;
+	ctx->bufferC += ctx->saveC;
+	ctx->bufferD += ctx->saveD;
+}
+
+void		md5_print(uint32_t bufA, uint32_t bufB, uint32_t bufC, uint32_t bufD)
+{
+	unsigned char res[16];
+	int i;
+
+	ft_memcpy(res, &bufA, 4);
+	ft_memcpy(res + 4, &bufB, 4);
+	ft_memcpy(res + 8, &bufC, 4);
+	ft_memcpy(res + 12, &bufD, 4);
+	i = 0;
+	while (i < 16)
+	{
+		printf("%02x", res[i]);
+		++i;
+	}
+	printf("\n");
+
 }
 
 void		calc_md5(char *str)
@@ -135,11 +144,12 @@ void		calc_md5(char *str)
 		md5_loop(&ctx, i);
 		++i;
 	}
-	printf("%02x%02x%02x%02x\n", ctx.bufferA, ctx.bufferB, ctx.bufferC, ctx.bufferD);
+	printf("%d rounds\n", i);
+	md5_print(ctx.bufferA, ctx.bufferB, ctx.bufferC, ctx.bufferD);
 }
 
 int			main(int argc, char **argv)
 {
-	calc_md5("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+	calc_md5("");
 	return (0);
 }
