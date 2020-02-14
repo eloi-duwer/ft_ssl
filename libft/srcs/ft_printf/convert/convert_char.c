@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_char_to_unsigned.c                              :+:      :+:    :+:   */
+/*   convert_char.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/31 16:53:27 by eduwer            #+#    #+#             */
-/*   Updated: 2020/01/31 17:12:00 by eduwer           ###   ########.fr       */
+/*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
+/*   Updated: 2020/02/14 12:46:34 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libftprintf.h>
 
-unsigned char *ft_char_to_unsigned(char *str)
+e_printf_state		convert_char(t_printf_context *ctx)
 {
-	unsigned char *ret;
-	size_t i;
-	size_t length;
+	unsigned char c;
+	unsigned char *str;
+	e_printf_state ret;
 
-	length = ft_strlen(str);
-	ret = (unsigned char *)ft_memalloc(sizeof(char) * (length + 1));
-	if (!ret)
-		return NULL;
-	i = 0;
-	while (i < length)
-	{
-		ret[i] = (unsigned char)str[i];
-		++i;
-	}
+	c = (unsigned char)va_arg(*(ctx->list), int);
+	if ((str = (unsigned char *)ft_memalloc(sizeof(char) * 2)) == NULL)
+		return error;
+	str[0] = c;
+	if ((str = (unsigned char *)field_width(ctx, (char *)str)) == NULL)
+		return error;
+	ret = append_string(ctx, (char *)str);
+	free(str);
 	return ret;
 }

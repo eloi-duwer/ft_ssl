@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/14 00:34:00 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/14 13:27:59 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void		md5_print(uint32_t bufA, uint32_t bufB, uint32_t bufC, uint32_t bufD)
 	i = 0;
 	while (i < 16)
 	{
-		printf("%02x", res[i]);
+		ft_printf("%02x", res[i]);
 		++i;
 	}
-	printf("\n");
+	ft_printf("\n");
 }
 
 void		calc_md5(char *str)
