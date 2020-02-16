@@ -6,19 +6,24 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 13:12:01 by eduwer            #+#    #+#              #
-#    Updated: 2020/02/14 00:26:49 by eduwer           ###   ########.fr        #
+#    Updated: 2020/02/16 18:07:48 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_NAME = main.c \
-	digest.c \
-	rounds.c
+	helpers.c \
+	md5/md5.c \
+	md5/digest.c \
+	md5/rounds.c \
+	sha256/sha256.c \
+	sha256/sha256_helpers.c \
+
 
 NAME = ft_ssl
 
 CC = gcc
 
-CFLAGS = -I./include -g -I./libft/include
+CFLAGS = -I./include -g -I./libft/include -Wall -Wextra
 
 SRCF = ./srcs/
 

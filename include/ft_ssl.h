@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/14 00:36:08 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/16 18:43:15 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,50 @@
 # include <libft.h>
 # include <stdint.h>
 
+# define A 0
+# define B 1
+# define C 2
+# define D 3
+# define E 4
+# define F 5
+# define G 6
+# define H 7
+
 typedef struct	s_md5_ctx {
-	unsigned char 	*message;
-	size_t			originalSize;
-	size_t			currentSize;
-	uint32_t		bufferA;
-	uint32_t		bufferB;
-	uint32_t		bufferC;
-	uint32_t		bufferD;
+	unsigned char	*message;
+	size_t			original_size;
+	size_t			current_size;
+	uint32_t		buffera;
+	uint32_t		bufferb;
+	uint32_t		bufferc;
+	uint32_t		bufferd;
 	uint32_t		*buffers[4];
-	uint32_t		saveA;
-	uint32_t		saveB;
-uint32_t		saveC;
-	uint32_t		saveD;
+	uint32_t		savea;
+	uint32_t		saveb;
+	uint32_t		savec;
+	uint32_t		saved;
 
 }				t_md5_ctx;
 
-uint32_t	(*g_bitwise_operation[4]) (uint32_t x, uint32_t y, uint32_t z);
-void		universal_round(t_md5_ctx *ctx, int i, uint32_t buff[16]);
+typedef struct	s_sha256_ctx {
+	unsigned char	*message;
+	size_t			original_size;
+	size_t			current_size;
+	uint32_t		hash[8];
+	uint32_t		work_var[8];
+	uint32_t		work_table[64];
+}				t_sha256_ctx;
+
+char			*calc_md5(char *str);
+char			*calc_sha256(char *str);
+char			*print_bits(void *bytes, size_t size);
+uint32_t		(*g_bitwise_operation[4]) (uint32_t x, uint32_t y, uint32_t z);
+void			universal_md5_round(t_md5_ctx *ctx, int i, uint32_t buff[16]);
+uint32_t		left_rotate(uint32_t buff, unsigned int amount);
+uint32_t		right_rotate(uint32_t buff, unsigned int amount);
+uint32_t		sha256_init(char i, uint32_t word);
+uint32_t		sha256_s(char i, uint32_t word);
+uint32_t		sha256_ch(uint32_t x, uint32_t y, uint32_t z);
+uint32_t		sha256_maj(uint32_t x, uint32_t y, uint32_t z);
 
 #endif
