@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 13:47:08 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/14 13:23:48 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/17 23:39:52 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,6 @@ char				*ft_itoa_base_intmax(intmax_t n, unsigned int base, \
 char				*ft_itoa_base_uintmax(uintmax_t n, unsigned int base, \
 						int is_lowcase);
 unsigned char		*ft_char_to_unsigned(char *str);
+void				ft_reverse_string(unsigned char *str, size_t length);
 
 #endif

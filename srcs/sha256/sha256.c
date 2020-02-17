@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:02:15 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/16 19:01:43 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/18 00:18:15 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,20 @@ static void	sha256_operation(t_sha256_ctx *ctx, int j)
 void		sha256_loop(t_sha256_ctx *ctx, int i)
 {
 	int			j;
-	uint32_t	temp_work;
 
 	ft_memcpy(&ctx->work_var, &ctx->hash, sizeof(uint32_t) * 8);
 	j = 0;
 	while (j < 64)
 	{
-		if (j < 16) {
+		if (j < 16)
+		{
 			ft_memcpy(&ctx->work_table[j], &ctx->message[i * (64) + j * 4], 4);
-			printf("%08x\n", ctx->work_table[j]);
+			ft_reverse_string((unsigned char *)&ctx->work_table[j], 4);
 		}
 		else
-		{
-			temp_work = sha256_init(1, ctx->work_table[j - 2]) + \
+			ctx->work_table[j] = sha256_init(1, ctx->work_table[j - 2]) + \
 				ctx->work_table[j - 7] + sha256_init(0, \
 					ctx->work_table[j - 15]) + ctx->work_table[j - 16];
-			ft_memcpy(&ctx->work_table[j], &temp_work, 4);
-		}
 		sha256_operation(ctx, j);
 		++j;
 	}
@@ -128,7 +125,7 @@ char		*calc_sha256(char *str)
 	padding(&ctx);
 	init(&ctx);
 	i = 0;
-	while (i < ctx.current_size / (16 * 4))
+	while (i < ctx.current_size / (16 * 4)) 
 		sha256_loop(&ctx, i++);
 	ft_asprintf(&ret, "%04x%04x%04x%04x%04x%04x%04x%04x", \
 		ctx.hash[0], ctx.hash[1], ctx.hash[2], ctx.hash[3], \
