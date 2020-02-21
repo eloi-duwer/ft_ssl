@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/16 18:43:15 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/21 17:42:31 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <libft.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 # define A 0
 # define B 1
@@ -52,6 +53,17 @@ typedef struct	s_sha256_ctx {
 	uint32_t		work_var[8];
 	uint32_t		work_table[64];
 }				t_sha256_ctx;
+
+typedef	struct	s_ssl_args {
+	bool			quiet;
+	bool			reverse;
+	bool			read_stdin;
+	bool			print_stdin;
+	char			**files;
+	char			**strings;
+	bool			stop_parsing;
+	char			*(*hash_func) (char *input);
+}				t_ssl_args;
 
 char			*calc_md5(char *str);
 char			*calc_sha256(char *str);
