@@ -6,7 +6,7 @@
 /*   By: eduwer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 11:16:22 by eduwer            #+#    #+#             */
-/*   Updated: 2016/11/09 12:11:14 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 22:34:10 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <inttypes.h>
 #include "libft.h"
 
-static char convert_to_char(uintmax_t n, int is_lowercase)
+static char	convert_to_char(uintmax_t n, int is_lowercase)
 {
 	if (n <= 9)
 		return (char)(n + 48);
@@ -27,12 +27,12 @@ static char convert_to_char(uintmax_t n, int is_lowercase)
 		return ('?');
 }
 
-static int length_base(intmax_t nb, unsigned int base)
+static int	length_base(intmax_t nb, unsigned int base)
 {
 	int i;
 
 	i = 1;
-	while (nb > base -1 || nb < -base + 1)
+	while (nb > base - 1 || nb < -base + 1)
 	{
 		nb = nb / base;
 		i++;
@@ -83,13 +83,13 @@ char		*ft_itoa_base_intmax(intmax_t n, unsigned int base, \
 	int		i;
 
 	i = length_base(n, base);
-	if((result = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
-		return NULL;
+	if ((result = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
+		return (NULL);
 	result[i] = '\0';
 	if (n < 0)
 		result[0] = '-';
 	i--;
-	while(n > base - 1 || n < -base  + 1)
+	while (n > base - 1 || n < -base + 1)
 	{
 		result[i] = convert_to_char(ft_intmax_abs(n % base), is_lowercase);
 		n /= base;

@@ -6,7 +6,7 @@
 #    By: eduwer <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 18:54:25 by eduwer            #+#    #+#              #
-#    Updated: 2016/12/12 15:39:30 by eduwer           ###   ########.fr        #
+#    Updated: 2020/02/28 21:34:18 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,13 +75,15 @@ SRCS = ft_atoi.c \
 		   ft_itoa_intmax.c \
 		   ft_itoa_base_intmax.c \
 		   ft_char_to_unsigned.c \
-		   ft_reverse_string.c
+		   ft_reverse_string.c \
+		   ft_strtoupper.c \
+		   read_whole_file.c
 
 NAME = libft.a
 
 CC = gcc
 
-CFLAGS = -g -Wall -Wextra -Werror -I./include
+CFLAGS = -Wall -Wextra -Werror -I./include
 
 SRCF = ./srcs/libft/
 

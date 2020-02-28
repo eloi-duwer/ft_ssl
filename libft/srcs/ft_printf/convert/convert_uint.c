@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: eduwer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2017/05/22 19:20:42 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 22:50:24 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +20,10 @@
 **	les types plus petits sont castés en int
 */
 
-e_printf_state convert_uint(t_printf_context *ctx)
+t_printf_state	convert_uint(t_printf_context *ctx)
 {
-	intmax_t nbr;
-	char	*str;
+	intmax_t	nbr;
+	char		*str;
 
 	if (ctx->modifier == m_h || ctx->modifier == m_hh)
 		nbr = (uintmax_t)va_arg(*(ctx->list), unsigned int);
@@ -41,19 +40,19 @@ e_printf_state convert_uint(t_printf_context *ctx)
 	else
 		nbr = (intmax_t)va_arg(*(ctx->list), unsigned int);
 	if ((str = ft_itoa_uintmax(nbr)) == NULL)
-		return error;
-	return convert_uint_print(ctx, str);
+		return (error);
+	return (convert_uint_print(ctx, str));
 }
 
-e_printf_state convert_uint_print(t_printf_context *ctx, char *str)
+t_printf_state	convert_uint_print(t_printf_context *ctx, char *str)
 {
-	e_printf_state ret;
+	t_printf_state	ret;
 
 	if (ctx->precision != -1 && (str = fill_to_precision_int(ctx, str)) == NULL)
-		return error;
+		return (error);
 	if ((str = field_width(ctx, str)) == NULL)
-		return error;
+		return (error);
 	ret = append_string(ctx, str);
 	free(str);
-	return ret;
+	return (ret);
 }

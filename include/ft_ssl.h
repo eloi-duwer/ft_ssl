@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/21 17:42:31 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 21:28:05 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <libft.h>
 # include <stdint.h>
 # include <stdbool.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 # define A 0
 # define B 1
@@ -28,6 +30,10 @@
 # define F 5
 # define G 6
 # define H 7
+# define TYPE_FILE 0
+# define TYPE_STRING 1
+# define TYPE_STDIN 2
+# define TYPE_NONE 3
 
 typedef struct	s_md5_ctx {
 	unsigned char	*message;
@@ -57,16 +63,21 @@ typedef struct	s_sha256_ctx {
 typedef	struct	s_ssl_args {
 	bool			quiet;
 	bool			reverse;
+	int				return_status;
 	bool			read_stdin;
 	bool			print_stdin;
-	char			**files;
-	char			**strings;
 	bool			stop_parsing;
-	char			*(*hash_func) (char *input);
+	size_t			av_i;
+	size_t			av_j;
+	char			*func_name;
+	char			*(*hash_func) (char *input, size_t size);
 }				t_ssl_args;
 
-char			*calc_md5(char *str);
-char			*calc_sha256(char *str);
+void			process_stdin(t_ssl_args *args);
+void			process_string(t_ssl_args *args, int ac, char **av);
+void			process_file(t_ssl_args *args, char *file_name);
+char			*calc_md5(char *str, size_t size);
+char			*calc_sha256(char *str, size_t size);
 char			*print_bits(void *bytes, size_t size);
 uint32_t		(*g_bitwise_operation[4]) (uint32_t x, uint32_t y, uint32_t z);
 void			universal_md5_round(t_md5_ctx *ctx, int i, uint32_t buff[16]);

@@ -6,36 +6,13 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/14 12:46:36 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 22:49:00 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf.h>
 
-static e_printf_state test_l_ll_h_hh(t_printf_context *ctx);
-
-e_printf_state get_modifiers(t_printf_context *ctx)
-{
-	if (ctx->input[ctx->in_i] == 'q')
-		ctx->modifier = m_q;
-	else if (ctx->input[ctx->in_i] == 'L')
-		ctx->modifier = m_L;
-	else if (ctx->input[ctx->in_i] == 'j')
-		ctx->modifier = m_j;
-	else if (ctx->input[ctx->in_i] == 'z')
-		ctx->modifier = m_z;
-	else if (ctx->input[ctx->in_i] == 'Z')
-		ctx->modifier = m_Z;
-	else if (ctx->input[ctx->in_i] == 't')
-		ctx->modifier = m_t;
-	else if (test_l_ll_h_hh(ctx) == true);
-	else
-		ctx->in_i--;
-	ctx->in_i++;
-	return get_convertion(ctx);
-}
-
-static e_printf_state test_l_ll_h_hh(t_printf_context *ctx)
+static t_printf_state	test_l_ll_h_hh(t_printf_context *ctx)
 {
 	if (ctx->input[ctx->in_i] == 'h')
 	{
@@ -58,6 +35,26 @@ static e_printf_state test_l_ll_h_hh(t_printf_context *ctx)
 			ctx->modifier = m_l;
 	}
 	else
-		return false;
-	return true;
+		return (false);
+	return (true);
+}
+
+t_printf_state			get_modifiers(t_printf_context *ctx)
+{
+	if (ctx->input[ctx->in_i] == 'q')
+		ctx->modifier = m_q;
+	else if (ctx->input[ctx->in_i] == 'L')
+		ctx->modifier = m_L;
+	else if (ctx->input[ctx->in_i] == 'j')
+		ctx->modifier = m_j;
+	else if (ctx->input[ctx->in_i] == 'z')
+		ctx->modifier = m_z;
+	else if (ctx->input[ctx->in_i] == 'Z')
+		ctx->modifier = m_Z;
+	else if (ctx->input[ctx->in_i] == 't')
+		ctx->modifier = m_t;
+	else if (test_l_ll_h_hh(ctx) != true)
+		ctx->in_i--;
+	ctx->in_i++;
+	return (get_convertion(ctx));
 }

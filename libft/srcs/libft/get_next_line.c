@@ -6,7 +6,7 @@
 /*   By: eduwer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 14:49:01 by eduwer            #+#    #+#             */
-/*   Updated: 2018/03/01 12:59:17 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 22:30:29 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int				get_next_line(const int fd, char **line)
 	static char *pt_buff = NULL;
 	int			ret;
 
-	if(pt_buff == NULL)
+	if (pt_buff == NULL)
 		pt_buff = stat_buff;
 	if (line == NULL || fd < 0)
 		return (-1);

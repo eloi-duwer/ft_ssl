@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 13:47:08 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/17 23:39:52 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 21:38:09 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <string.h>
 # include <inttypes.h>
+# define READ_BUFF_SIZE 8192
 
 typedef struct		s_list
 {
@@ -100,5 +101,7 @@ char				*ft_itoa_base_uintmax(uintmax_t n, unsigned int base, \
 						int is_lowcase);
 unsigned char		*ft_char_to_unsigned(char *str);
 void				ft_reverse_string(unsigned char *str, size_t length);
+void				ft_strtoupper(char *str);
+int					read_whole_file(int fd, void **ptr, size_t *size);
 
 #endif

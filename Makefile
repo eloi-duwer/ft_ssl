@@ -6,12 +6,13 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 13:12:01 by eduwer            #+#    #+#              #
-#    Updated: 2020/02/16 18:07:48 by eduwer           ###   ########.fr        #
+#    Updated: 2020/02/28 18:59:15 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_NAME = main.c \
 	helpers.c \
+	process.c \
 	md5/md5.c \
 	md5/digest.c \
 	md5/rounds.c \

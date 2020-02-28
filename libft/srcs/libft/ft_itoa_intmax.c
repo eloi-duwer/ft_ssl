@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_intmax.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_intmax.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eduwer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 11:16:22 by eduwer            #+#    #+#             */
-/*   Updated: 2016/11/09 12:11:14 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 22:35:59 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 #include <inttypes.h>
 
-static int	length(intmax_t nb)
+static int		length(intmax_t nb)
 {
 	int i;
 
@@ -36,7 +36,7 @@ static intmax_t	intmax_abs(intmax_t nb)
 	return (nb);
 }
 
-char		*ft_itoa_intmax(intmax_t n)
+char			*ft_itoa_intmax(intmax_t n)
 {
 	char	*result;
 	int		i;
@@ -58,7 +58,7 @@ char		*ft_itoa_intmax(intmax_t n)
 	return (result);
 }
 
-static int	ulenght(uintmax_t nb)
+static int		ulenght(uintmax_t nb)
 {
 	int i;
 
@@ -71,7 +71,7 @@ static int	ulenght(uintmax_t nb)
 	return (i);
 }
 
-char		*ft_itoa_uintmax(uintmax_t n)
+char			*ft_itoa_uintmax(uintmax_t n)
 {
 	char	*result;
 	int		i;

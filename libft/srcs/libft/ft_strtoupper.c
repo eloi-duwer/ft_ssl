@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_reverse_string.c                                :+:      :+:    :+:   */
+/*   ft_strtoupper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
+/*   By: eduwer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 23:35:14 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/17 23:39:45 by eduwer           ###   ########.fr       */
+/*   Created: 2020/02/28 19:18:55 by eduwer            #+#    #+#             */
+/*   Updated: 2020/02/28 22:30:56 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-void	ft_reverse_string(unsigned char *str, size_t length)
+void	ft_strtoupper(char *str)
 {
-	size_t	i;
-	char	mem;
+	int	i;
+	int	length;
 
 	i = 0;
-	while (i < length / 2)
+	length = ft_strlen(str);
+	while (i < length)
 	{
-		mem = str[i];
-		str[i] = str[length - 1 - i];
-		str[length - 1 - i] = mem;
+		str[i] = ft_toupper(str[i]);
 		++i;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/16 18:38:15 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 20:58:20 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ char		*md5_print(uint32_t bufa, uint32_t bufb, uint32_t bufc,\
 	return (res);
 }
 
-char		*calc_md5(char *str)
+char		*calc_md5(char *str, size_t size)
 {
 	size_t		i;
 	t_md5_ctx	ctx;
 
 	ctx.message = ft_char_to_unsigned(str);
-	ctx.original_size = ft_strlen(str);
+	ctx.original_size = size;
 	padding(&ctx);
 	ctx.buffera = 0x67452301;
 	ctx.bufferb = 0xefcdab89;
