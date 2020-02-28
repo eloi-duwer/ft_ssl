@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 18:16:21 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 21:32:26 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/28 22:57:34 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void		process_file(t_ssl_args *args, char *file_name)
 	char	*ret;
 	size_t	size;
 
+	ft_printf("PROCESS FILE\n");
+
 	args->print_stdin = false;
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
@@ -43,7 +45,7 @@ void		process_file(t_ssl_args *args, char *file_name)
 		args->return_status = 1;
 		return;
 	}
-	if ((size = read_whole_file((void **)&file, fd)) == -1)
+	if ((read_whole_file(fd, (void **)&file, &size)) == -1)
 	{
 		write(2, "Error while reading file\n", 25);
 		close(fd);
