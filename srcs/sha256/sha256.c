@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:02:15 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 22:53:09 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/29 17:17:12 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	init(t_sha256_ctx *ctx)
 	ctx->hash[7] = 0x5be0cd19;
 }
 
-static void	padding(t_sha256_ctx *ctx)
+static int	padding(t_sha256_ctx *ctx)
 {
 	int				padding_size;
 	uint64_t		nb_bits;
@@ -50,20 +50,20 @@ static void	padding(t_sha256_ctx *ctx)
 	if (padding_size <= 0)
 		padding_size += 64;
 	padding_size += 8;
-	ret = (unsigned char *)ft_memalloc(sizeof(unsigned char) * \
-		(ctx->original_size + padding_size));
+	if ((ret = (unsigned char *)ft_memalloc(sizeof(unsigned char) * \
+		(ctx->original_size + padding_size))) == NULL)
+		return (1);
 	ft_memcpy(ret, ctx->message, ctx->original_size);
 	ret[ctx->original_size] = 1 << 7 & 0xFF;
 	ctx->current_size = ctx->original_size + padding_size;
 	nb_bits = ctx->original_size * 8;
 	ptr = (unsigned char *)&nb_bits;
-	i = 0;
-	while (i < 8)
-	{
+	i = -1;
+	while (++i < 8)
 		ft_memcpy(&ret[ctx->current_size - (8 - i)], &ptr[7 - i], 1);
-		++i;
-	}
+	free(ctx->message);
 	ctx->message = ret;
+	return (0);
 }
 
 static void	sha256_operation(t_sha256_ctx *ctx, int j)
@@ -120,15 +120,19 @@ char		*calc_sha256(char *str, size_t size)
 	size_t			i;
 	char			*ret;
 
-	ctx.message = ft_char_to_unsigned(str);
+	if ((ctx.message = (unsigned char *)ft_memalloc(size)) == NULL)
+		return (NULL);
+	ft_memcpy(ctx.message, str, size);
 	ctx.original_size = size;
-	padding(&ctx);
+	if (padding(&ctx) != 0)
+		return (NULL);
 	init(&ctx);
 	i = 0;
 	while (i < ctx.current_size / (16 * 4))
 		sha256_loop(&ctx, i++);
-	ft_asprintf(&ret, "%04x%04x%04x%04x%04x%04x%04x%04x", \
+	asprintf(&ret, "%08x%08x%08x%08x%08x%08x%08x%08x", \
 		ctx.hash[0], ctx.hash[1], ctx.hash[2], ctx.hash[3], \
 		ctx.hash[4], ctx.hash[5], ctx.hash[6], ctx.hash[7]);
+	free(ctx.message);
 	return (ret);
 }

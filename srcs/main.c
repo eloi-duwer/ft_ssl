@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 14:03:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 22:59:26 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/29 17:12:50 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	parse_subargs(t_ssl_args *args, int ac, char **av)
 		else if (av[args->av_i][args->av_j] == 'r')
 			args->reverse = true;
 		else if (av[args->av_i][args->av_j] == 'p')
-			process_stdin(args);
+			process_stdin(args, false);
 		else if (av[args->av_i][args->av_j] == 's')
 			process_string(args, ac, av);
 		else
@@ -68,7 +68,7 @@ int		parse_args(t_ssl_args *args, int ac, char **av)
 		}
 	}
 	if (args->print_stdin == true)
-		process_stdin(args);
+		process_stdin(args, true);
 	return (args->return_status);
 }
 

@@ -6,7 +6,7 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 13:12:01 by eduwer            #+#    #+#              #
-#    Updated: 2020/02/28 18:59:15 by eduwer           ###   ########.fr        #
+#    Updated: 2020/02/29 17:07:41 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,10 @@ LFT = libft/libft.a
 all: $(NAME)
 
 $(NAME): $(LFT) $(OBJS)
-	make -C ./libft
 	$(CC) -o $(NAME) $(OBJS) -g -L./libft -lft
+
+$(LFT):
+	make -C ./libft
 
 $(OBJF)%.o: $(SRCF)%.c
 	@mkdir -p $(@D)

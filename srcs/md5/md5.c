@@ -6,13 +6,13 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 20:58:20 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/29 17:14:40 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ssl.h>
 
-static void	padding(t_md5_ctx *ctx)
+static int	padding(t_md5_ctx *ctx)
 {
 	int				padding_size;
 	uint64_t		nb_bits;
@@ -24,12 +24,16 @@ static void	padding(t_md5_ctx *ctx)
 	padding_size += 8;
 	ret = (unsigned char *)ft_memalloc(sizeof(unsigned char) * \
 		(ctx->original_size + padding_size));
+	if (!ret)
+		return (1);
 	ft_memcpy(ret, ctx->message, ctx->original_size);
 	ret[ctx->original_size] = 1 << 7 & 0xFF;
 	ctx->current_size = ctx->original_size + padding_size;
 	nb_bits = ctx->original_size * 8;
 	ft_memcpy(&ret[ctx->current_size - 8], &nb_bits, 8);
+	free(ctx->message);
 	ctx->message = ret;
+	return (0);
 }
 
 static void	update_poiters(t_md5_ctx *ctx)
@@ -94,9 +98,12 @@ char		*calc_md5(char *str, size_t size)
 	size_t		i;
 	t_md5_ctx	ctx;
 
-	ctx.message = ft_char_to_unsigned(str);
+	if ((ctx.message = (unsigned char *)ft_memalloc(size)) == NULL)
+		return (NULL);
+	ctx.message = ft_memcpy(ctx.message, str, size);
 	ctx.original_size = size;
-	padding(&ctx);
+	if (padding(&ctx) != 0)
+		return (NULL);
 	ctx.buffera = 0x67452301;
 	ctx.bufferb = 0xefcdab89;
 	ctx.bufferc = 0x98badcfe;
@@ -108,5 +115,6 @@ char		*calc_md5(char *str, size_t size)
 	i = 0;
 	while (i < ctx.current_size / (16 * 4))
 		md5_loop(&ctx, i++);
+	free(ctx.message);
 	return (md5_print(ctx.buffera, ctx.bufferb, ctx.bufferc, ctx.bufferd));
 }

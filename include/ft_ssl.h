@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 21:28:05 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/02/29 16:17:03 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef	struct	s_ssl_args {
 	char			*(*hash_func) (char *input, size_t size);
 }				t_ssl_args;
 
-void			process_stdin(t_ssl_args *args);
+void			process_stdin(t_ssl_args *args, bool print_stdin);
 void			process_string(t_ssl_args *args, int ac, char **av);
 void			process_file(t_ssl_args *args, char *file_name);
 char			*calc_md5(char *str, size_t size);
