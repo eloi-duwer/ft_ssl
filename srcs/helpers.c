@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:52:03 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/02 20:13:50 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 22:09:48 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ uint64_t	reverse_bits(uint64_t in)
 		ret |= (in >> (i * 8)) & 0xFF;
 		++i;
 	}
-	return ret;
+	return (ret);
 }

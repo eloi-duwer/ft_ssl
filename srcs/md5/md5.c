@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/02 20:58:17 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 22:09:29 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static void	md5_loop(t_md5_ctx *ctx, int i)
 	ctx->bufferc += ctx->savec;
 	ctx->bufferd += ctx->saved;
 }
-
-#include <stdio.h>
 
 char		*md5_print(uint32_t bufa, uint32_t bufb, uint32_t bufc,\
 				uint32_t bufd)

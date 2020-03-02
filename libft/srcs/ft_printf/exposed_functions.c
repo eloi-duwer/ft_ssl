@@ -6,7 +6,7 @@
 /*   By: eduwer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 21:53:31 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/02 17:27:36 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 22:10:32 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,3 @@ int	ft_fdprintf(int fd, const char *restrict format, ...)
 	free(&(ctx.output[0]));
 	return (ctx.out_i);
 }
-
