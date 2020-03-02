@@ -6,14 +6,13 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/29 16:17:03 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 20:07:35 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <libft.h>
@@ -21,6 +20,8 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 
 # define A 0
 # define B 1
@@ -73,6 +74,8 @@ typedef	struct	s_ssl_args {
 	char			*(*hash_func) (char *input, size_t size);
 }				t_ssl_args;
 
+void			print_errno(char *buf);
+uint64_t		reverse_bits(uint64_t in);
 void			process_stdin(t_ssl_args *args, bool print_stdin);
 void			process_string(t_ssl_args *args, int ac, char **av);
 void			process_file(t_ssl_args *args, char *file_name);

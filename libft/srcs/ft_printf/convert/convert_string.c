@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 22:50:52 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 18:11:29 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_printf_state	convert_string_wchart(t_printf_context *ctx)
 {
 	ctx = NULL;
-	return (false);
+	return (error);
 }
 
 t_printf_state			convert_string(t_printf_context *ctx)

@@ -6,26 +6,30 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 14:03:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/29 17:12:50 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 19:01:21 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ssl.h>
 
-int		print_commands(char *name)
+static int	print_commands(char *name)
 {
-	ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\n", name);
-	ft_printf("Standart commands:\n\n");
-	ft_printf("Message Digest commands:\nmd5\nsha256\n\n");
-	ft_printf("Cipher commands:\n");
+	ft_fdprintf(2, "ft_ssl: Error: '%s' is an invalid command.\n\n", name);
+	ft_fdprintf(2, "Standart commands:\n\n");
+	ft_fdprintf(2, "Message Digest commands:\nmd5\nsha256\n\n");
+	ft_fdprintf(2, "Cipher commands:\n");
 	return (1);
 }
 
-void	parse_subargs(t_ssl_args *args, int ac, char **av)
+static int	print_usage(void)
 {
-	char	*err;
-	size_t	len;
+	ft_fdprintf(2, "Usage: ./ft_ssl command [-pqr] [-s string] \
+[files ...]\n");
+	return (1);
+}
 
+static int	parse_subargs(t_ssl_args *args, int ac, char **av)
+{
 	args->av_j = 0;
 	while (++args->av_j < ft_strlen(av[args->av_i]))
 	{
@@ -39,17 +43,15 @@ void	parse_subargs(t_ssl_args *args, int ac, char **av)
 			process_string(args, ac, av);
 		else
 		{
-			len = ft_asprintf(&err, "illegal option -- %c\n", \
+			ft_fdprintf(2, "Illegal option -- %c\n", \
 				av[args->av_i][args->av_j]);
-			write(2, err, len);
-			free(err);
-			args->return_status = 1;
-			args->av_j = ft_strlen(av[args->av_i]);
+			return (print_usage());
 		}
 	}
+	return (0);
 }
 
-int		parse_args(t_ssl_args *args, int ac, char **av)
+static int	parse_args(t_ssl_args *args, int ac, char **av)
 {
 	while (++args->av_i < (size_t)ac)
 	{
@@ -59,7 +61,8 @@ int		parse_args(t_ssl_args *args, int ac, char **av)
 			args->stop_parsing = true;
 		else if (av[args->av_i][0] == '-')
 		{
-			parse_subargs(args, ac, av);
+			if (parse_subargs(args, ac, av) != 0)
+				return (1);
 		}
 		else
 		{
@@ -72,40 +75,12 @@ int		parse_args(t_ssl_args *args, int ac, char **av)
 	return (args->return_status);
 }
 
-char	*print_bits(void *bytes, size_t size)
-{
-	int				i;
-	size_t			j;
-	char			*ret;
-	unsigned char	*ptr;
-
-	ptr = (unsigned char *)bytes;
-	ret = (char *)ft_memalloc(sizeof(char) * (size * 9));
-	j = 0;
-	while (j < size)
-	{
-		i = 7;
-		while (i >= 0)
-		{
-			ret[(j * 9) + (7 - i)] = (ptr[j] & (0x1 << i & 0xFF)) ? '1' : '0';
-			--i;
-		}
-		if (j < size - 1)
-			ret[j * 9 + 8] = ' ';
-		++j;
-	}
-	return (ret);
-}
-
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_ssl_args	args;
 
 	if (argc == 1)
-	{
-		ft_printf("usage: ./ft_ssl command [command opts] [command args]\n");
-		return (1);
-	}
+		return (print_usage());
 	args.av_i = 1;
 	args.av_j = 0;
 	args.quiet = false;

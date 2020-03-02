@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:02:15 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/29 17:17:12 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 17:06:22 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char		*calc_sha256(char *str, size_t size)
 	i = 0;
 	while (i < ctx.current_size / (16 * 4))
 		sha256_loop(&ctx, i++);
-	asprintf(&ret, "%08x%08x%08x%08x%08x%08x%08x%08x", \
+	ft_asprintf(&ret, "%08x%08x%08x%08x%08x%08x%08x%08x", \
 		ctx.hash[0], ctx.hash[1], ctx.hash[2], ctx.hash[3], \
 		ctx.hash[4], ctx.hash[5], ctx.hash[6], ctx.hash[7]);
 	free(ctx.message);

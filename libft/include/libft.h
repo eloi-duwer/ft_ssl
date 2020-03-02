@@ -6,14 +6,14 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 13:47:08 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 21:38:09 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 17:28:20 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <string.h>
-# include <inttypes.h>
+# include <stddef.h>
+# include <stdint.h>
 # define READ_BUFF_SIZE 8192
 
 typedef struct		s_list
@@ -24,7 +24,7 @@ typedef struct		s_list
 }					t_list;
 
 int					ft_printf(const char *restrict str, ...);
-int					ft_sprintf(char *str, const char *restrict format, ...);
+int					ft_fdprintf(int fd, const char *restrict format, ...);
 int					ft_snprintf(char *str, size_t size, \
 						const char *restrict format, ...);
 int					ft_asprintf(char **pstr, const char *restrict format, ...);

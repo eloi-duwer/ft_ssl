@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:21:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/29 17:14:40 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 20:58:17 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	padding(t_md5_ctx *ctx)
 	return (0);
 }
 
-static void	update_poiters(t_md5_ctx *ctx)
+static void	update_pointers(t_md5_ctx *ctx)
 {
 	uint32_t	*mem;
 
@@ -63,13 +63,15 @@ static void	md5_loop(t_md5_ctx *ctx, int i)
 	while (++j < 64)
 	{
 		universal_md5_round(ctx, j, buff);
-		update_poiters(ctx);
+		update_pointers(ctx);
 	}
 	ctx->buffera += ctx->savea;
 	ctx->bufferb += ctx->saveb;
 	ctx->bufferc += ctx->savec;
 	ctx->bufferd += ctx->saved;
 }
+
+#include <stdio.h>
 
 char		*md5_print(uint32_t bufa, uint32_t bufb, uint32_t bufc,\
 				uint32_t bufd)
