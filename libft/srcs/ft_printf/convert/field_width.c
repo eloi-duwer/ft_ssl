@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 22:13:51 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 21:48:31 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	*flag_minus(char *str, int length, int field_width)
 
 static char	*flag_zero(t_printf_context *ctx, char *str, int length)
 {
-	return (precision_and_zero_padding(str, ctx->field_width - length));
+	return (precision_and_zero_padding(ctx, str, ctx->field_width - length));
 }
 
 char		*field_width(t_printf_context *ctx, char *str)

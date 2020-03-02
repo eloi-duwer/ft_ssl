@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 17:33:38 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/02 17:13:32 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 21:48:12 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ t_printf_state	convert_uint(t_printf_context *ctx);
 t_printf_state	convert_octal_hexa(t_printf_context *ctx);
 t_printf_state	convert_double(t_printf_context *ctx);
 char			*space_and_plus_flag(t_printf_context *ctx, char *str);
-char			*precision_and_zero_padding(char *str, int nb_to_add);
+char			*precision_and_zero_padding(t_printf_context *ctx, \
+					char *str, int nb_to_add);
 char			*field_width(t_printf_context *ctx, char *str);
 char			*fill_to_precision_int(t_printf_context *ctx, char *str);
 t_printf_state	convert_uint_print(t_printf_context *ctx, char *str);

@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 22:49:51 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/02 22:03:04 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,11 @@ char					*fill_to_precision_int(t_printf_context *ctx, char *str)
 	}
 	if (length >= ctx->precision)
 		return (str);
-	return (precision_and_zero_padding(str, ctx->precision - length));
+	return (precision_and_zero_padding(ctx, str, ctx->precision - length));
 }
 
-char					*precision_and_zero_padding(char *str, int nb_to_add)
+char					*precision_and_zero_padding(t_printf_context *ctx, \
+							char *str, int nb_to_add)
 {
 	char	*newstr;
 	int		i;
@@ -88,7 +89,9 @@ char					*precision_and_zero_padding(char *str, int nb_to_add)
 		return (NULL);
 	}
 	i = 0;
-	if (ft_isdigit(str[0]) == 0)
+	if ((ctx->convertion == c_int || ctx->convertion == c_scilowcase || \
+		ctx->convertion == c_sciuppcase || ctx->convertion == c_lowdouble || \
+			ctx->convertion == c_uppdouble) && str[0] == '-')
 	{
 		newstr[0] = str[0];
 		i = 1;
