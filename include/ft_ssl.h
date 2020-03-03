@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/02 20:07:35 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/03 20:55:04 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define TYPE_STRING 1
 # define TYPE_STDIN 2
 # define TYPE_NONE 3
+# define UINT128 __uint128_t
 
 typedef struct	s_md5_ctx {
 	unsigned char	*message;
@@ -61,6 +62,15 @@ typedef struct	s_sha256_ctx {
 	uint32_t		work_table[64];
 }				t_sha256_ctx;
 
+typedef struct	s_sha512_ctx {
+	unsigned char	*message;
+	size_t			original_size;
+	size_t			current_size;
+	uint64_t		hash[8];
+	uint64_t		work_var[8];
+	uint64_t		work_table[80];
+}				t_sha512_ctx;
+
 typedef	struct	s_ssl_args {
 	bool			quiet;
 	bool			reverse;
@@ -81,6 +91,7 @@ void			process_string(t_ssl_args *args, int ac, char **av);
 void			process_file(t_ssl_args *args, char *file_name);
 char			*calc_md5(char *str, size_t size);
 char			*calc_sha256(char *str, size_t size);
+char			*calc_sha512(char *str, size_t size);
 char			*print_bits(void *bytes, size_t size);
 uint32_t		(*g_bitwise_operation[4]) (uint32_t x, uint32_t y, uint32_t z);
 void			universal_md5_round(t_md5_ctx *ctx, int i, uint32_t buff[16]);
@@ -90,5 +101,9 @@ uint32_t		sha256_init(char i, uint32_t word);
 uint32_t		sha256_s(char i, uint32_t word);
 uint32_t		sha256_ch(uint32_t x, uint32_t y, uint32_t z);
 uint32_t		sha256_maj(uint32_t x, uint32_t y, uint32_t z);
+uint64_t		sha512_init(char i, uint64_t x);
+uint64_t		sha512_s(char i, uint64_t x);
+uint64_t		sha512_ch(uint64_t x, uint64_t y, uint64_t z);
+uint64_t		sha512_maj(uint64_t x, uint64_t y, uint64_t z);
 
 #endif

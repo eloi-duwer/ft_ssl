@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 22:48:33 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/03 20:57:08 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static t_printf_state	get_all_flags(t_printf_context *ctx, int prev_i)
 			ctx->flags |= FLAG_PLUS;
 		else if (ctx->input[ctx->in_i] == ' ')
 			ctx->flags |= FLAG_SPACE;
-		else if (ctx->input[ctx->in_i] == '*')
-			ctx->flags |= FLAG_STAR;
 		else if (ctx->input[ctx->in_i] == '$')
 			ctx->flags |= FLAG_DOLLAR;
 		else

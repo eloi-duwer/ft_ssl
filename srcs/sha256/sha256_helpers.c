@@ -6,11 +6,20 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 18:07:05 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/18 00:13:02 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/03 19:05:40 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_ssl.h>
+
+/*
+** Functions names are from the specification of SHA algorithms
+** cf https://csrc.nist.gov/csrc/media/publications/fips/180/2/archive/\
+** 2002-08-01/documents/fips180-2.pdf
+** sha256_init is for functions 4.6 and 4.7 in the document,
+** sha256_s is for functions 4.4 and 4.5,
+** ch and maj have the same name
+*/
 
 uint32_t	sha256_init(char i, uint32_t word)
 {

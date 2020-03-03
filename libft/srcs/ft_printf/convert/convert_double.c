@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2020/02/28 22:49:38 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/03 18:37:43 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ t_printf_state	convert_double(t_printf_context *ctx)
 	else
 		nbr = (long double)va_arg(*(ctx->list), double);
 	if ((str = longdoubletochar(ctx, nbr)) == NULL)
+		return (error);
+	if ((str = space_and_plus_flag(ctx, str)) == NULL)
+		return (error);
+	if ((str = field_width(ctx, str)) == NULL)
 		return (error);
 	ret = append_string(ctx, str);
 	free(str);
