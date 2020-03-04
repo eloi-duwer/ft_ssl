@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 14:03:45 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/03 20:04:11 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/04 15:18:11 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	print_commands(char *name)
 {
 	ft_fdprintf(2, "ft_ssl: Error: '%s' is an invalid command.\n\n", name);
 	ft_fdprintf(2, "Standart commands:\n\n");
-	ft_fdprintf(2, "Message Digest commands:\nmd5\nsha256\nsha512\n\n");
+	ft_fdprintf(2, "Message Digest commands:\nmd5\nsha256\nsha384\nsha512\n\n");
 	ft_fdprintf(2, "Cipher commands:\n");
 	return (1);
 }
@@ -95,6 +95,8 @@ int			main(int argc, char **argv)
 		args.hash_func = calc_sha256;
 	else if (ft_strcmp(argv[1], "sha512") == 0)
 		args.hash_func = calc_sha512;
+	else if (ft_strcmp(argv[1], "sha384") == 0)
+		args.hash_func = calc_sha384;
 	else
 		return (print_commands(argv[1]));
 	args.func_name = argv[1];

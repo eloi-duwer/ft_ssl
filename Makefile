@@ -6,7 +6,7 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 13:12:01 by eduwer            #+#    #+#              #
-#    Updated: 2020/03/03 19:09:15 by eduwer           ###   ########.fr        #
+#    Updated: 2020/03/04 15:20:35 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC_NAME = main.c \
 	sha256/sha256.c \
 	sha256/sha256_helpers.c \
 	sha512/sha512.c \
-	sha512/sha512_helpers.c
+	sha512/sha512_helpers.c \
+	sha384/sha384.c
 
 NAME = ft_ssl
 

@@ -6,7 +6,7 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:23:10 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/03 20:55:04 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/04 15:16:16 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void			process_file(t_ssl_args *args, char *file_name);
 char			*calc_md5(char *str, size_t size);
 char			*calc_sha256(char *str, size_t size);
 char			*calc_sha512(char *str, size_t size);
+char			*calc_sha384(char *str, size_t size);
 char			*print_bits(void *bytes, size_t size);
 uint32_t		(*g_bitwise_operation[4]) (uint32_t x, uint32_t y, uint32_t z);
 void			universal_md5_round(t_md5_ctx *ctx, int i, uint32_t buff[16]);
@@ -105,5 +106,7 @@ uint64_t		sha512_init(char i, uint64_t x);
 uint64_t		sha512_s(char i, uint64_t x);
 uint64_t		sha512_ch(uint64_t x, uint64_t y, uint64_t z);
 uint64_t		sha512_maj(uint64_t x, uint64_t y, uint64_t z);
+void			sha512_loop(t_sha512_ctx *ctx, int i);
+int				padding_sha512(t_sha512_ctx *ctx);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: eduwer <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 19:09:33 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/03 20:53:49 by eduwer           ###   ########.fr       */
+/*   Updated: 2020/03/04 15:22:48 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	init(t_sha512_ctx *ctx)
 	ctx->hash[7] = 0x5be0cd19137e2179;
 }
 
-static int	padding(t_sha512_ctx *ctx)
+int			padding_sha512(t_sha512_ctx *ctx)
 {
 	int				padding_size;
 	UINT128			nb_bits;
@@ -102,7 +102,7 @@ static void	sha512_operation(t_sha512_ctx *ctx, int j)
 	ctx->work_var[A] = t1 + t2;
 }
 
-static void	sha512_loop(t_sha512_ctx *ctx, int i)
+void		sha512_loop(t_sha512_ctx *ctx, int i)
 {
 	int	j;
 
@@ -140,7 +140,7 @@ char		*calc_sha512(char *str, size_t size)
 		return (NULL);
 	ft_memcpy(ctx.message, str, size);
 	ctx.original_size = size;
-	if (padding(&ctx) != 0)
+	if (padding_sha512(&ctx) != 0)
 		return (NULL);
 	init(&ctx);
 	i = 0;
