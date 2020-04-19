@@ -19,7 +19,7 @@ void		process_stdin(t_ssl_args *args, bool print_stdin)
 	size_t	size;
 
 	args->print_stdin = false;
-	if ((read_whole_file(0, (void **)&file, &size)) != 0)
+	if ((read_whole_stdin((void **)&file, &size)) != 0)
 	{
 		ft_fdprintf(2, "Error while reading from stdin\n");
 		return ;

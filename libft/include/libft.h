@@ -14,7 +14,8 @@
 # define LIBFT_H
 # include <stddef.h>
 # include <stdint.h>
-# define READ_BUFF_SIZE 8192
+# include <sys/stat.h>
+# define READ_BUFF_SIZE 100000
 
 typedef struct		s_list
 {
@@ -103,5 +104,6 @@ unsigned char		*ft_char_to_unsigned(char *str);
 void				ft_reverse_string(unsigned char *str, size_t length);
 void				ft_strtoupper(char *str);
 int					read_whole_file(int fd, void **ptr, size_t *size);
+int					read_whole_stdin(void **ptr, size_t *size);
 
 #endif

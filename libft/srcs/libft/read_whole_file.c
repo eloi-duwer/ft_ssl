@@ -33,24 +33,41 @@ static int	remalloc_the_line(void **ptr, size_t *current_length, \
 
 int			read_whole_file(int fd, void **ptr, size_t *size)
 {
+	struct stat	fstat_res;
+	void		*res;
+	int			read_ret;
+
+	if (fstat(fd, &fstat_res) == -1)
+		return (1);
+	*size = (size_t)fstat_res.st_size;
+	if ((res = (void *)malloc(*size)) == NULL)
+		return (1);
+	read_ret = read(fd, res, *size);
+	if (read_ret == -1)
+		return (1);
+	*ptr = res;
+	return (0);
+}
+
+int			read_whole_stdin(void **ptr, size_t *size)
+{
 	int		readsize;
 	void	*ret;
 	char	buff[READ_BUFF_SIZE];
 	size_t	total_size;
 
 	total_size = 0;
-	while (((readsize = read(fd, buff, READ_BUFF_SIZE)) == READ_BUFF_SIZE) \
-		|| (fd == 0 && readsize > 0))
+	while ((readsize = read(0, buff, READ_BUFF_SIZE)) > 0)
 	{
 		if (remalloc_the_line(&ret, &total_size, readsize) != 0)
 			return (1);
-		ft_memcpy(&ret[total_size - readsize], buff, readsize);
+		ft_memcpy(ret + total_size - readsize, buff, readsize);
 	}
 	if (readsize == -1)
 		return (1);
 	if (remalloc_the_line(&ret, &total_size, readsize) != 0)
 		return (1);
-	ft_memcpy(&ret[total_size - readsize], buff, readsize);
+	ft_memcpy(ret + total_size - readsize, buff, readsize);
 	*ptr = ret;
 	*size = total_size;
 	return (0);

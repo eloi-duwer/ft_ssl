@@ -14,7 +14,7 @@
 
 /*
 ** Functions names are from the specification of SHA algorithms
-** cf https://csrc.nist.gov/csrc/media/publications/fips/180/2/archive/\
+** cf https://csrc.nist.gov/csrc/media/publications/fips/180/2/archive/
 ** 2002-08-01/documents/fips180-2.pdf
 ** sha256_init is for functions 4.6 and 4.7 in the document,
 ** sha256_s is for functions 4.4 and 4.5,
