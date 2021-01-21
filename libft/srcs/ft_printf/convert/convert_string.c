@@ -6,13 +6,13 @@
 /*   By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/22 16:31:44 by eduwer            #+#    #+#             */
-/*   Updated: 2020/03/02 18:11:29 by eduwer           ###   ########.fr       */
+/*   Updated: 2021/01/21 19:05:00 by eduwer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libftprintf.h>
 
-static t_printf_state	convert_string_wchart()
+static t_printf_state	convert_string_wchart(void)
 {
 	return (error);
 }
