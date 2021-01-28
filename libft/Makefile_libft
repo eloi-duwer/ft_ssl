@@ -81,7 +81,7 @@ SRCS = ft_atoi.c \
 
 NAME = libft.a
 
-CC = gcc
+CC = clang
 
 CFLAGS = -g -Wall -Wextra -Werror -I./include
 

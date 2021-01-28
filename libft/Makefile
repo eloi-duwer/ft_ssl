@@ -6,7 +6,7 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/22 16:26:19 by eduwer            #+#    #+#              #
-#    Updated: 2020/02/14 12:22:02 by eduwer           ###   ########.fr        #
+#    Updated: 2021/01/28 22:45:52 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_NAME = append_string.c \
 
 NAME = libft.a
 
-CC = gcc
+CC = clang
 
 CFLAGS = -I./include -I./libft/include -Wall -Wextra -Werror
 

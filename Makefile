@@ -6,7 +6,7 @@
 #    By: eduwer <eduwer@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/31 13:12:01 by eduwer            #+#    #+#              #
-#    Updated: 2020/03/04 15:20:35 by eduwer           ###   ########.fr        #
+#    Updated: 2021/01/28 22:45:22 by eduwer           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ SRC_NAME = main.c \
 
 NAME = ft_ssl
 
-CC = gcc
+CC = clang
 
-CFLAGS = -I./include -g -I./libft/include -Wall -Wextra
+CFLAGS = -I./include -g -I./libft/include -Wall -Wextra -Werror
 
 SRCF = ./srcs/
 
